@@ -1,0 +1,28 @@
+html {
+  height: 100%;
+  user-select: none;
+  overflow: hidden;
+
+  *,
+  *:before,
+  *:after {
+    box-sizing: border-box;
+  }
+
+  *:focus {
+    outline: none;
+  }
+}
+
+body {
+  height: 100%;
+  background: black;
+  background-image: radial-gradient(circle at 48% 49%, rgba(29, 27, 33, 0.93), #04000a 146%);
+}
+
+canvas {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
