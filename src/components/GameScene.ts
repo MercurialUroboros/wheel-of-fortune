@@ -1,27 +1,23 @@
-import { Background } from '@/components/Background';
-import { SpinButton } from '@/components/SpinButton';
 import { Wheel } from '@/components/Wheel';
 import { emitter } from '@/emitter';
 import { store } from '@/store';
 import { maxGameHeight, maxGameWidth, screenCenterX, screenCenterY } from '@/utils';
 import { Container, Graphics, Text } from 'pixi.js';
+import { SpinButton } from './SpinButton';
+import { WinningScreen } from './WinningScreen';
 
 export class GameScene extends Container {
   private wheel = new Wheel()
   private spinButton = new SpinButton()
+  private winningScreen = new WinningScreen()
 
   constructor () {
     super()
-    this.setupBackground()
     this.setupWheel()
     this.setupSpinButton()
     this.setupDebugButtons()
+    this.setupWinningScreen()
     this.hookEmitters()
-  }
-
-  private setupBackground () {
-    const background = new Background(maxGameWidth, maxGameHeight)
-    this.addChild(background)
   }
 
   private setupWheel () {
@@ -30,15 +26,13 @@ export class GameScene extends Container {
   }
 
   private setupSpinButton () {
-    this.spinButton.anchor.set(1)
-    this.spinButton.position.set(maxGameWidth, maxGameHeight)
+    this.spinButton.anchor.set(.5)
+    this.spinButton.position.set(this.wheel.x, this.wheel.y)
 
     this.spinButton.addEventListener('pointerdown', async () => {
       const data = await store.purchaseSpin()
       if (data) {
-        const { index, value, weight } = data
-        this.wheel.spinToSector(index)
-        console.log('click', index, value, weight)
+        await this.wheel.spinToSector(data)
       }
     })
 
@@ -46,6 +40,12 @@ export class GameScene extends Container {
   }
 
   private setupDebugButtons () {
+    const debugContainer = new Container()
+    const debugButtons = new Container()
+    const debugLabel = new Text('Debug Options', { fill: 0xffffff })
+    debugContainer.addChild(debugLabel, debugButtons)
+    debugButtons.x = debugLabel.getBounds().right + 10
+    debugLabel.y = 5
     for (let i = 0; i < store.weights.length; i++) {
       const text = new Text(`(${i}) ${store.weights[i].value}`, { fill: 0xffffff })
       const buttonGraphics = new Graphics()
@@ -60,20 +60,27 @@ export class GameScene extends Container {
       text.y = buttonGraphics.height / 2
       buttonGraphics.interactive = true
       buttonGraphics.addEventListener('pointerdown', async () => {
-        await this.wheel.spinToSector(i)
+        await this.wheel.spinToSector({ index: i, weight: store.weights[i].weight, value: store.weights[i].value })
       })
       buttonGraphics.addChild(text)
-      this.addChild(buttonGraphics)
+      debugButtons.addChild(buttonGraphics)
     }
+
+    this.addChild(debugContainer)
+  }
+
+  private setupWinningScreen () {
+    this.addChild(this.winningScreen)
   }
 
   private hookEmitters () {
-    emitter.on('spin-started', () => {
+    emitter.on('spin_started', () => {
       this.spinButton.setPause()
     })
 
-    emitter.on('spin-ended', () => {
+    emitter.on('spin_ended', (creditsWon: number) => {
       this.spinButton.setSpin()
+      this.winningScreen.showWinningValue(creditsWon)
     })
   }
 
