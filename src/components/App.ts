@@ -1,12 +1,12 @@
-import { observe } from '@nx-js/observer-util';
-import { Graphics, Sprite, Texture, Container, Application, Assets, Text } from 'pixi.js';
-import { store } from '../store';
-import { GAME_VIEWPORT, } from '../utils';
-import background from '../assets/background.png'
-import wheelSlice from '../assets/wheel-slice.png'
-import wheelCenter from '../assets/wheel-center.png'
-import gsap from 'gsap';
-import { Wheel } from './Wheel';
+import { Container, Application, Assets } from 'pixi.js';
+import { store } from '@/store';
+import { GAME_VIEWPORT, } from '@/utils';
+import { GameScene } from '@/components/GameScene';
+import background from '@/assets/background.png'
+import wheelSlice from '@/assets/wheel-slice.png'
+import wheelCenter from '@/assets/wheel-center.png'
+import spinButton from '@/assets/spin.png'
+import pauseButton from '@/assets/pause.png'
 
 /**
  * The entry point for the app
@@ -53,7 +53,7 @@ class App extends Application {
   public startApp () {
     if (this.isStarted) return
     this.isStarted = true
-    document.body.appendChild(this.view);
+    document.body.appendChild(this.view as unknown as Node);
     this.preload()
   }
 
@@ -62,18 +62,43 @@ class App extends Application {
    * Avoided using spritesheet for the sake of simplicity
    */
   private async preload () {
-    Assets.add('background', background)
-    Assets.add('wheelSlice', wheelSlice)
-    Assets.add('wheelCenter', wheelCenter)
-    const assetsToLoad = Assets.load(['background', 'wheelSlice', 'wheelCenter'])
-    await assetsToLoad
-    this.init()
 
+    const assetList = [
+      {
+        label: 'background',
+        path: background
+      },
+      {
+        label: 'wheelSlice',
+        path: wheelSlice
+      },
+      {
+        label: 'wheelCenter',
+        path: wheelCenter
+      },
+      {
+        label: 'spinButton',
+        path: spinButton
+      },
+      {
+        label: 'pauseButton',
+        path: pauseButton
+      },
+    ]
+
+    assetList.forEach(({ label, path }) => {
+      Assets.add(label, path)
+    })
+
+    const assetsToLoad = Assets.load(assetList.map(al => al.label))
+    await assetsToLoad
+    await store.connectBackendAPI()
+    this.init()
   }
 
   private init () {
-    const wheel = new Wheel()
-    this.app.addChild(wheel)
+    const gameScene = new GameScene()
+    this.app.addChild(gameScene)
   }
 
 }

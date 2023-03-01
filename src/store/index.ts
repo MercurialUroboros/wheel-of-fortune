@@ -1,51 +1,60 @@
 import { observable } from '@nx-js/observer-util'
+import { getSpinValue, getWeights } from '@/api'
+import { Weight } from '@/types'
 
 /**
  * Storing data in a flux pattern
  */
 class Store {
   private readonly baseStake = 1
-  private _balance = observable({ value: 2000 })
-  private _stake = observable({ value: this.baseStake })
-  private _shouldShowBonus = observable({ value: false })
+  #weights: Weight<number>[] = []
+  #balance = observable({ value: 2000 })
+  #stake = observable({ value: this.baseStake })
+  #shouldShowBonus = observable({ value: false })
 
   public get shouldShowBonus () {
-    return this._shouldShowBonus;
+    return this.#shouldShowBonus;
   }
 
   public get balance () {
-    return this._balance;
+    return this.#balance;
   }
 
   public get stake () {
-    return this._stake;
+    return this.#stake;
   }
 
-  public purchaseSpin (): boolean {
-    if (this._balance.value < this._stake.value) return false
-    this._balance.value -= this._stake.value
-    return true
+  public get weights () {
+    return this.#weights;
+  }
+
+  private async loadWeights () {
+    this.#weights = await getWeights()
+  }
+
+  public async purchaseSpin () {
+    if (this.#balance.value < this.#stake.value) return false
+    this.#balance.value -= this.#stake.value
+    const data = await getSpinValue()
+    return data
   }
 
   public addToBalance (value: number): void {
-    this._balance.value += value
+    this.#balance.value += value
   }
 
   public updateStake (stake: number): void {
-    this._stake.value = stake
+    this.#stake.value = stake
   }
 
   public setShouldShowBonus (shouldShow: boolean) {
-    this._shouldShowBonus.value = shouldShow
+    this.#shouldShowBonus.value = shouldShow
   }
 
-  public startBonus () {
-    this.setShouldShowBonus(true)
+  public async connectBackendAPI () {
+    await this.loadWeights()
   }
 
-  public stopBonus () {
-    this.setShouldShowBonus(false)
-  }
 }
 
 /**

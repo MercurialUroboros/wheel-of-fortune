@@ -1,0 +1,34 @@
+[
+  {
+    "value": 5000,
+    "weight": 4
+  },
+  {
+    "value": 200,
+    "weight": 100
+  },
+  {
+    "value": 1000,
+    "weight": 20
+  },
+  {
+    "value": 400,
+    "weight": 50
+  },
+  {
+    "value": 2000,
+    "weight": 10
+  },
+  {
+    "value": 200,
+    "weight": 100
+  },
+  {
+    "value": 1000,
+    "weight": 20
+  },
+  {
+    "value": 400,
+    "weight": 50
+  }
+]
