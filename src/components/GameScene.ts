@@ -62,7 +62,7 @@ export class GameScene extends Container {
       buttonGraphics.interactive = true
       buttonGraphics.addEventListener('pointerdown', async () => {
         if (!store.canSpin) return
-        await this.wheel.spinToSector({ index: i, weight: store.weights[i].weight, value: store.weights[i].value })
+        await this.wheel.spinToSector({ index: i, value: store.weights[i].value })
       })
       buttonGraphics.addChild(text)
       debugButtons.addChild(buttonGraphics)
