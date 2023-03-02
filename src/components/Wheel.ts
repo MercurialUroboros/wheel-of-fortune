@@ -30,14 +30,14 @@ export class Wheel extends Container {
       const slice = new Slice(this.sliceColors[sector], `${sector} - ${this.weights[sector].value}`)
 
       const rotation = (sector * this.radiansPerSector) + (Math.PI * 3 / 2)
-      const textAnchorPercentage = (this.radius - 40 / 2) / this.radius;
+      const textAnchorPercentage = (this.radius - 40 / 2) / this.radius
 
-      slice.rotation = rotation + Math.PI;
+      slice.rotation = rotation + Math.PI
 
       slice.position.x = this.radius
-        + this.radius * textAnchorPercentage * Math.cos(rotation);
+        + this.radius * textAnchorPercentage * Math.cos(rotation)
       slice.position.y = this.radius
-        + this.radius * textAnchorPercentage * Math.sin(rotation);
+        + this.radius * textAnchorPercentage * Math.sin(rotation)
 
       this.wheelContainer.addChild(slice)
     }

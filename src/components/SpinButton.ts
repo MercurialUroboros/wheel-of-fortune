@@ -1,5 +1,5 @@
-import { Assets, Text } from 'pixi.js';
-import { BaseButton } from './BaseButton';
+import { Assets, Text } from 'pixi.js'
+import { BaseButton } from './BaseButton'
 
 export class SpinButton extends BaseButton {
   private pauseState = false

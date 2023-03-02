@@ -10,15 +10,15 @@ class Store {
   #canSpin = false
 
   public get credits () {
-    return this.#credits;
+    return this.#credits
   }
 
   public get weights () {
-    return this.#weights;
+    return this.#weights
   }
 
   public get canSpin () {
-    return this.#canSpin;
+    return this.#canSpin
   }
 
   private async loadWeights () {

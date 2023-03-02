@@ -1,10 +1,10 @@
-import { Wheel } from '@/components/Wheel';
-import { emitter } from '@/emitter';
-import { store } from '@/store';
-import { screenCenterX, screenCenterY } from '@/utils';
-import { Container, Graphics, Text } from 'pixi.js';
-import { SpinButton } from './SpinButton';
-import { WinningScreen } from './WinningScreen';
+import { Wheel } from '@/components/Wheel'
+import { emitter } from '@/emitter'
+import { store } from '@/store'
+import { screenCenterX, screenCenterY } from '@/utils'
+import { Container, Graphics, Text } from 'pixi.js'
+import { SpinButton } from './SpinButton'
+import { WinningScreen } from './WinningScreen'
 
 export class GameScene extends Container {
   private wheel = new Wheel()

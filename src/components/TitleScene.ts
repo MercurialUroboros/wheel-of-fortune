@@ -1,7 +1,7 @@
-import { emitter } from '@/emitter';
-import { screenCenterX, screenCenterY } from '@/utils';
-import { Container, Text } from 'pixi.js';
-import { PlayButton } from './PlayButton';
+import { emitter } from '@/emitter'
+import { screenCenterX, screenCenterY } from '@/utils'
+import { Container, Text } from 'pixi.js'
+import { PlayButton } from './PlayButton'
 
 export class TitleScene extends Container {
 

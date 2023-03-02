@@ -1,7 +1,7 @@
-import { maxGameWidth } from '@/utils';
-import { sound } from '@pixi/sound';
-import { Container, Sprite, Text, Texture } from 'pixi.js';
-import gsap, { Linear } from 'gsap';
+import { maxGameWidth } from '@/utils'
+import { sound } from '@pixi/sound'
+import { Container, Sprite, Text, Texture } from 'pixi.js'
+import gsap, { Linear } from 'gsap'
 
 export class Footer extends Container {
   private creditsLabel = new Text("Credits: ", { fill: 0xffffff })
@@ -47,7 +47,7 @@ export class Footer extends Container {
         sound.play('creditsRollUpSound')
         this.creditsValueLabel.text = temp.value.toFixed(0)
       }
-    });
+    })
 
     this.setupCredits(value)
   }

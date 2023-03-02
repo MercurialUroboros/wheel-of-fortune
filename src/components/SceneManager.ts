@@ -1,12 +1,12 @@
-import { emitter } from '@/emitter';
-import { store } from '@/store';
-import { maxGameWidth, maxGameHeight } from '@/utils';
-import gsap from 'gsap';
-import { Container } from 'pixi.js';
-import { Background } from './Background';
-import { Footer } from './Footer';
-import { GameScene } from './GameScene';
-import { TitleScene } from './TitleScene';
+import { emitter } from '@/emitter'
+import { store } from '@/store'
+import { maxGameWidth, maxGameHeight } from '@/utils'
+import gsap from 'gsap'
+import { Container } from 'pixi.js'
+import { Background } from './Background'
+import { Footer } from './Footer'
+import { GameScene } from './GameScene'
+import { TitleScene } from './TitleScene'
 
 export class SceneManager extends Container {
   private titleScene = new TitleScene()

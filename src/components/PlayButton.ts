@@ -1,5 +1,5 @@
-import { Assets } from 'pixi.js';
-import { BaseButton } from './BaseButton';
+import { Assets } from 'pixi.js'
+import { BaseButton } from './BaseButton'
 
 export class PlayButton extends BaseButton {
   private pauseState = false

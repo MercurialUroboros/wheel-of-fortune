@@ -1,7 +1,7 @@
-import { emitter } from '@/emitter';
-import { maxGameHeight, maxGameWidth, screenCenterX, screenCenterY } from '@/utils';
-import gsap from 'gsap';
-import { Container, Sprite, Text, Texture } from 'pixi.js';
+import { emitter } from '@/emitter'
+import { maxGameHeight, maxGameWidth, screenCenterX, screenCenterY } from '@/utils'
+import gsap from 'gsap'
+import { Container, Sprite, Text, Texture } from 'pixi.js'
 
 export class WinningScreen extends Container {
   private label = new Text('', { fill: 0xffffff, fontSize: 50 })

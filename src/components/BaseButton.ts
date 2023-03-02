@@ -1,4 +1,4 @@
-import { Sprite } from 'pixi.js';
+import { Sprite } from 'pixi.js'
 
 export abstract class BaseButton extends Sprite {
 

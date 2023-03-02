@@ -1,9 +1,9 @@
 import '@pixi/sound' // Side effects for pixi sound
-import { Container, Application, Assets } from 'pixi.js';
-import { store } from '@/store';
-import { GAME_VIEWPORT, } from '@/utils';
-import { SceneManager } from './SceneManager';
-import { assetList } from '@/config';
+import { Container, Application, Assets } from 'pixi.js'
+import { store } from '@/store'
+import { GAME_VIEWPORT, } from '@/utils'
+import { SceneManager } from './SceneManager'
+import { assetList } from '@/config'
 
 /**
  * The entry point for the app
@@ -40,17 +40,17 @@ class App extends Application {
     let h = width / this.viewPortRatio
 
     if (width / height >= this.viewPortRatio) {
-      w = height * this.viewPortRatio;
-      h = height;
+      w = height * this.viewPortRatio
+      h = height
     }
-    this.renderer.view.style!.width = w + 'px';
-    this.renderer.view.style!.height = h + 'px';
+    this.renderer.view.style!.width = w + 'px'
+    this.renderer.view.style!.height = h + 'px'
   }
 
   public startApp () {
     if (this.isStarted) return
     this.isStarted = true
-    document.body.appendChild(this.view as unknown as Node);
+    document.body.appendChild(this.view as unknown as Node)
     this.preload()
   }
 
