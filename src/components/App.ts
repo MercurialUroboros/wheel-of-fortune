@@ -1,17 +1,9 @@
-import '@pixi/sound'
+import '@pixi/sound' // Side effects for pixi sound
 import { Container, Application, Assets } from 'pixi.js';
 import { store } from '@/store';
 import { GAME_VIEWPORT, } from '@/utils';
-import background from '@/assets/background.png'
-import wheelSlice from '@/assets/wheel-slice.png'
-import wheelCenter from '@/assets/wheel-center.png'
-import playButton from '@/assets/play.png'
-import pauseButton from '@/assets/pause.png'
-import wheelPointer from '@/assets/pointer.png'
-import wheelClickSound from '@/assets/sounds/wheel-click.wav'
-import wheelLandingSound from '@/assets/sounds/wheel-landing.wav'
-import creditsRollUpSound from '@/assets/sounds/credits-rollup.wav'
 import { SceneManager } from './SceneManager';
+import { assetList } from '@/config';
 
 /**
  * The entry point for the app
@@ -67,52 +59,8 @@ class App extends Application {
    * Avoided using spritesheet for the sake of simplicity
    */
   private async preload () {
-
-    const assetList = [
-      {
-        label: 'background',
-        path: background
-      },
-      {
-        label: 'wheelSlice',
-        path: wheelSlice
-      },
-      {
-        label: 'wheelCenter',
-        path: wheelCenter
-      },
-      {
-        label: 'wheelPointer',
-        path: wheelPointer
-      },
-      {
-        label: 'playButton',
-        path: playButton
-      },
-      {
-        label: 'pauseButton',
-        path: pauseButton
-      },
-      {
-        label: 'wheelClickSound',
-        path: wheelClickSound
-      },
-      {
-        label: 'wheelLandingSound',
-        path: wheelLandingSound
-      },
-      {
-        label: 'creditsRollUpSound',
-        path: creditsRollUpSound
-      }
-    ]
-
-    assetList.forEach(({ label, path }) => {
-      Assets.add(label, path)
-    })
-
-    const assetsToLoad = Assets.load(assetList.map(al => al.label))
-    await assetsToLoad
+    assetList.forEach(({ label, path }) => Assets.add(label, path))
+    await Assets.load(assetList.map(al => al.label))
     await store.connectBackendAPI()
     this.init()
   }
@@ -120,7 +68,6 @@ class App extends Application {
   private init () {
     this.app.addChild(new SceneManager())
   }
-
 }
 
 /**
