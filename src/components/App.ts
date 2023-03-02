@@ -2,7 +2,6 @@ import '@pixi/sound' // Side effects for pixi sound
 import { Container, Application, Assets } from 'pixi.js'
 import { store } from '@/store'
 import { GAME_VIEWPORT, } from '@/utils'
-import { SceneManager } from './SceneManager'
 import { assetList } from '@/config'
 
 /**
@@ -55,18 +54,20 @@ class App extends Application {
   }
 
   /**
-   * Add textures manually
    * Avoided using spritesheet for the sake of simplicity
    */
   private async preload () {
     assetList.forEach(({ label, path }) => Assets.add(label, path))
     await Assets.load(assetList.map(al => al.label))
     await store.connectBackendAPI()
-    this.init()
+    await this.init()
   }
 
-  private init () {
-    this.app.addChild(new SceneManager())
+  private async init () {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const sceneManagerModule = await import(`@/components/SceneManager.ts`)
+    this.app.addChild(new sceneManagerModule.SceneManager())
   }
 }
 
