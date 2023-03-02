@@ -72,16 +72,18 @@ export class SceneManager extends Container {
 
   private hookEventListeners () {
     emitter.on('transition_to_game_scene', () => {
+      store.setCanSpin(true)
       this.sceneTween.play()
     })
     emitter.on('transition_to_title_scene', () => {
-      console.log('eddau')
+      store.setCanSpin(false)
       this.sceneTween.reverse()
     })
   }
 
   private hookReactivity () {
     emitter.on('spin_ended', (creditsWon: number) => {
+      store.setCanSpin(false)
       store.addToCredits(creditsWon)
       this.footer.updateCredits(store.credits)
     })

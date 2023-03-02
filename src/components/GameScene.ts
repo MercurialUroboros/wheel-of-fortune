@@ -1,7 +1,7 @@
 import { Wheel } from '@/components/Wheel';
 import { emitter } from '@/emitter';
 import { store } from '@/store';
-import { maxGameHeight, maxGameWidth, screenCenterX, screenCenterY } from '@/utils';
+import { screenCenterX, screenCenterY } from '@/utils';
 import { Container, Graphics, Text } from 'pixi.js';
 import { SpinButton } from './SpinButton';
 import { WinningScreen } from './WinningScreen';
@@ -30,6 +30,7 @@ export class GameScene extends Container {
     this.spinButton.position.set(this.wheel.x, this.wheel.y)
 
     this.spinButton.addEventListener('pointerdown', async () => {
+      if (!store.canSpin) return
       const data = await store.purchaseSpin()
       if (data) {
         await this.wheel.spinToSector(data)
