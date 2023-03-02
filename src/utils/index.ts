@@ -11,4 +11,4 @@ export const screenCenterY = maxGameHeight / 2
 export const getRandomFromWeights = (weightedArray: Weight<number>[]) =>
   sample(weightedArray
     .map((wp, index) => Array.from({ length: wp.weight }, () => ({ index, value: wp.value, weight: wp.weight })))
-    .flat())!
+    .flat())

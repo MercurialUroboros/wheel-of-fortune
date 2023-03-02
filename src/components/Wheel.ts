@@ -53,7 +53,7 @@ export class Wheel extends Container {
     this.addChild(sprite)
   }
 
-  public async spinToSector ({ index, value, weight }: { index: number, value: number, weight: number }) {
+  public async spinToSector ({ index, value }: { index: number, value: number }) {
     if (this.isSpinning) return
     this.wheelContainer.rotation = 0
     const rotationValue = (this.radiansPerSector * index) + this.piTwo
@@ -62,8 +62,7 @@ export class Wheel extends Container {
     let previousSegment = 0
     await gsap.to(this.wheelContainer, {
       onUpdate: () => {
-        if (previousSegment === Math.floor(this.wheelContainer.rotation)) {
-        } else {
+        if (previousSegment !== Math.floor(this.wheelContainer.rotation)) {
           sound.play('wheelClickSound')
           previousSegment = Math.floor(this.wheelContainer.rotation)
         }
